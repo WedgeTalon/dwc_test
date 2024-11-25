@@ -28,14 +28,30 @@ cd dwc_test
 1. Ensure Docker Desktop is running.
 2. In the project directory, run the following command to start the containers:
    ```sh
-   docker-compose up -d
+   docker-compose up -d --build
    ```
 
-### Seeding the Database
-To seed the database with initial data, run the following command via Docker on the CLI:
-```sh
-docker-compose exec php php artisan db:seed --class=CustomerSeeder
-```
+### First Run Instructions
+1. Install PHP dependencies:
+   ```sh
+   docker-compose exec php composer install
+   ```
+2. Install Node.js dependencies:
+   ```sh
+   docker-compose exec php npm install
+   ```
+3. Build the frontend:
+   ```sh
+   docker-compose exec php npm run build
+   ```
+4. Migrate the database:
+   ```sh
+   docker-compose exec php php artisan migrate
+   ```
+5. Seed the Database
+   ```sh
+   docker-compose exec php php artisan db:seed --class=CustomerSeeder
+   ```
 
 ### Accessing the Website
 - Open your web browser and navigate to [http://localhost:8080](http://localhost:8080) or [https://localhost](https://localhost).

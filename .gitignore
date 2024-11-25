@@ -1,9 +1,6 @@
 # ignore postgres directory
 postgres/
 
-.env
-.env.backup
-.env.production
 /.fleet
 /.idea
 /.vscode
