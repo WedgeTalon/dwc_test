@@ -1,0 +1,12 @@
+# ignore postgres directory
+postgres/
+
+.env
+.env.backup
+.env.production
+/.fleet
+/.idea
+/.vscode
+
+app/storage/framework/cache/*
+app/node_modules/

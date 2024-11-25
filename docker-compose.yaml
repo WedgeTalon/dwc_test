@@ -1,0 +1,42 @@
+services:
+  php:
+    image: dunglas/frankenphp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:80" # HTTP
+      - "443:443" # HTTPS
+    volumes:
+      - ./app:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    tty: true
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  pgweb:
+    image: sosedoff/pgweb
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "9090:8081" # Map external port 8081 to internal port 8081
+    environment:
+      PGWEB_DATABASE_URL: postgres://root:root@db:5432/app?sslmode=disable
+
+
+volumes:
+  caddy_data:
+  caddy_config:
