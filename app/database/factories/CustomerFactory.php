@@ -12,7 +12,6 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'account_number' => $this->faker->unique()->numerify('##########'), // 10-digit account number
             'customer_name' => $this->faker->name(),
             'billing_address_1' => $this->faker->streetAddress(),
             'billing_address_2' => $this->faker->optional()->secondaryAddress(),

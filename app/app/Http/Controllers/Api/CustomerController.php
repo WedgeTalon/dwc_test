@@ -79,7 +79,8 @@ class CustomerController extends Controller
             return response()->json(['errors' => $validator->errors(), 'message' => 'Validation failed'], 422);
         }
 
-        $customer = Customer::create($request->all());
+        $customerData = $request->except('account_number'); // Exclude account_number from being provided
+        $customer = Customer::create($customerData);
         return response()->json($customer);
     }
 

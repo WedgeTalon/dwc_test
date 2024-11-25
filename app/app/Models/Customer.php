@@ -31,4 +31,22 @@ class Customer extends Model
     protected $casts = [
         'shipment_day' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($customer) {
+            $customer->account_number = self::generateUniqueAccountNumber();
+        });
+    }
+
+    private static function generateUniqueAccountNumber()
+    {
+        do {
+            $accountNumber = bin2hex(random_bytes(5));
+        } while (self::where('account_number', $accountNumber)->exists());
+
+        return $accountNumber;
+    }
 }
